@@ -2,7 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class BaseModel(models.Model):
+TITLESIZE = 256
+
+
+class PublishedModel(models.Model):
     """
     Абстрактная модель.
     Добавляет к модели дату создания и флаг опубликовано.
@@ -23,10 +26,9 @@ class BaseModel(models.Model):
         abstract = True
 
 
-# Публикация
-class Post(BaseModel):
+class Post(PublishedModel):
     title = models.CharField(
-        max_length=256,
+        max_length=TITLESIZE,
         blank=False,
         null=False,
         verbose_name='Заголовок'
@@ -66,11 +68,13 @@ class Post(BaseModel):
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
 
+    def __str__(self):
+        return self.title
 
-# Тематическая категория
-class Category(BaseModel):
+
+class Category(PublishedModel):
     title = models.CharField(
-        max_length=256,
+        max_length=TITLESIZE,
         blank=False,
         null=False,
         verbose_name='Заголовок'
@@ -96,11 +100,13 @@ class Category(BaseModel):
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
+    def __str__(self):
+        return self.title
 
-# Географическая метка
-class Location(BaseModel):
+
+class Location(PublishedModel):
     name = models.CharField(
-        max_length=256,
+        max_length=TITLESIZE,
         blank=False,
         null=False,
         verbose_name='Название места'
@@ -109,3 +115,6 @@ class Location(BaseModel):
     class Meta:
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
+
+    def __str__(self):
+        return self.name
