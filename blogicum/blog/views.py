@@ -1,32 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
 
-from blog.models import Post, Category
+from blog.models import Category
 
+from .utils import posts_filter
 
-SORT_ORDER_BY_PUB_DATE = '-pub_date'
-
-
-def posts_filter(category=None, include_author_location=False):
-    filters = {
-        'is_published': True,
-        'pub_date__lte': timezone.now(),
-        'category__is_published': True
-    }
-    if category:
-        filters['category'] = category
-
-    queryset = Post.objects.filter(**filters)
-    if include_author_location:
-        queryset = queryset.select_related('author', 'location', 'category')
-    else:
-        queryset = queryset.select_related('category')
-
-    return queryset
+POSTS_LIMIT = 5
 
 
 def index(request):
-    post_list = posts_filter().order_by(SORT_ORDER_BY_PUB_DATE)[:5]
+    post_list = posts_filter().order_by('-pub_date')[:POSTS_LIMIT]
     context = {
         'post_list': post_list,
     }

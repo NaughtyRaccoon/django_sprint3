@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-TITLESIZE = 256
+TITLE_SIZE = 256
 
 
 class PublishedModel(models.Model):
@@ -28,7 +28,7 @@ class PublishedModel(models.Model):
 
 class Post(PublishedModel):
     title = models.CharField(
-        max_length=TITLESIZE,
+        max_length=TITLE_SIZE,
         blank=False,
         null=False,
         verbose_name='Заголовок'
@@ -69,12 +69,12 @@ class Post(PublishedModel):
         verbose_name_plural = 'Публикации'
 
     def __str__(self):
-        return self.title
+        return self.title[:15]
 
 
 class Category(PublishedModel):
     title = models.CharField(
-        max_length=TITLESIZE,
+        max_length=TITLE_SIZE,
         blank=False,
         null=False,
         verbose_name='Заголовок'
@@ -101,12 +101,12 @@ class Category(PublishedModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title
+        return self.title[:15]
 
 
 class Location(PublishedModel):
     name = models.CharField(
-        max_length=TITLESIZE,
+        max_length=TITLE_SIZE,
         blank=False,
         null=False,
         verbose_name='Название места'
@@ -117,4 +117,4 @@ class Location(PublishedModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return self.name
+        return self.name[:15]
