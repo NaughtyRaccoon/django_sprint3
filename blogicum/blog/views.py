@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
 from blog.models import Category
-
 from .utils import posts_filter
 
 POSTS_LIMIT = 5

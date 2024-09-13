@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 TITLE_SIZE = 256
 
+SHORT_NAME = 15
+
 
 class PublishedModel(models.Model):
     """
@@ -69,7 +71,7 @@ class Post(PublishedModel):
         verbose_name_plural = 'Публикации'
 
     def __str__(self):
-        return self.title[:15]
+        return self.title[:SHORT_NAME]
 
 
 class Category(PublishedModel):
@@ -101,7 +103,7 @@ class Category(PublishedModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title[:15]
+        return self.title[:SHORT_NAME]
 
 
 class Location(PublishedModel):
@@ -117,4 +119,4 @@ class Location(PublishedModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
-        return self.name[:15]
+        return self.name[:SHORT_NAME]
